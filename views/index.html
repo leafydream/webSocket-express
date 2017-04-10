@@ -1,0 +1,54 @@
+
+<h1 class="title">WebSocket与服务器通讯</h1>
+<div class="container">
+    <div id="time"></div>
+    <ul id="list"></ul>
+
+</div>
+
+
+<script>
+
+    $(function () {
+
+        $("#time").html(new Date());
+
+        if(window.WebSocket){
+            //创建webSocket对象
+            var ws = new WebSocket('ws://localhost:8000');
+
+            //连接成功
+            ws.onopen = function (e) {
+                console.log('连接服务器成功。。。');
+                console.log(e);
+                setInterval(function () {
+                    var date = new Date();
+                    this.send(date);
+                }.bind(this),1000);
+
+            };
+
+            ws.onmessage = function (e) {
+                $("#time").html(e.data);
+                $("#list").append($("<li />").html(e.data));
+                console.log(e);
+            };
+
+            ws.onclose = function (e) {
+                console.log('连接关闭。。。');
+                console.log(e);
+            };
+
+            ws.onerror = function (e) {
+                console.log('连接出错。。。');
+                console.log(e);
+            };
+
+        }else{
+            console.log('您的浏览器不支持WebSocket。。。');
+        }
+    });
+
+
+
+</script>

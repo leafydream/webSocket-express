@@ -1,0 +1,13 @@
+.title{
+    padding: 20px;
+    font-size: 36px;
+    font-weight: normal;
+}
+.container{
+    margin-top: 20px;
+
+}
+#time{
+    height: 50px;
+    font-size: 30px;
+}
